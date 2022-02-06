@@ -67,7 +67,10 @@ async fn main() -> Result<(), Error> {
 
                 match text {
                     Ok(word) => {
-                        let response = find_word(&word);
+                        let mut response = find_word(&word);
+                        if response.len() == 0 {
+                            response = String::from("Word not found");
+                        }
                         api.send(message.text_reply(response)).await?;
                     }
                     Err(error) => {
